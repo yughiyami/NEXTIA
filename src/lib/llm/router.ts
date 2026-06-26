@@ -4,6 +4,7 @@
 import { env } from "@/lib/env";
 import { ollama } from "./ollama";
 import { gemini } from "./gemini";
+import { localEmbedBatch } from "./embed";
 import type { ChatMessage, ChatOptions, LlmProvider } from "./types";
 
 const providers: Record<"ollama" | "gemini", LlmProvider> = { ollama, gemini };
@@ -40,9 +41,14 @@ export async function chat(
   }
 }
 
-/** Embeddings stay on a single provider for vector-space consistency. */
+/** Embeddings: intenta provider primario; si falla, usa embedder local (hash). */
 export async function embed(texts: string[]): Promise<number[][]> {
-  return primary().embed(texts);
+  try {
+    return await primary().embed(texts);
+  } catch {
+    console.warn("[llm] provider embed failed, usando local embedder");
+    return localEmbedBatch(texts);
+  }
 }
 
 export async function health() {
