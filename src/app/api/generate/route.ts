@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { runGenerate } from "@/lib/graphs/generate";
+import { getSession } from "@/lib/session";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -13,6 +14,10 @@ const Body = z.object({
 });
 
 export async function POST(req: Request) {
+  const s = await getSession();
+  if (!s?.user) {
+    return NextResponse.json({ error: "no autorizado" }, { status: 401 });
+  }
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) {
     return NextResponse.json({ error: "datos inválidos", detalle: parsed.error.issues }, { status: 400 });

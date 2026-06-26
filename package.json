@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "db:init": "node scripts/init-db.mjs",
-    "db:auth": "better-auth migrate -y",
+    "db:auth": "npx --yes @better-auth/cli@latest migrate -y",
     "typecheck": "tsc --noEmit",
     "db:ingest": "node scripts/ingest-curriculum.mjs"
   },
