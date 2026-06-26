@@ -1,0 +1,13 @@
+MATERIA: Matemática
+GRADO: 5to de primaria
+TEMA: Fracciones
+
+Una fracción representa partes iguales de un todo. Se escribe con un numerador (arriba) y un denominador (abajo). El denominador indica en cuántas partes iguales se divide el entero y el numerador cuántas de esas partes se toman. Por ejemplo, si una chacra se divide en 4 partes iguales y se siembra papa en 3, la parte sembrada es 3/4.
+
+Para comparar fracciones con el mismo denominador, es mayor la que tiene mayor numerador: 3/5 es mayor que 2/5. Cuando los denominadores son distintos, conviene buscar fracciones equivalentes con el mismo denominador antes de comparar.
+
+Fracciones equivalentes representan la misma cantidad aunque se escriban distinto. Se obtienen multiplicando o dividiendo numerador y denominador por el mismo número: 1/2 es equivalente a 2/4 y a 3/6.
+
+Para sumar o restar fracciones con igual denominador se opera solo con los numeradores y se mantiene el denominador: 2/7 + 3/7 = 5/7. En la vida diaria usamos fracciones al repartir alimentos, medir ingredientes para preparar mazamorra o calcular cuánto terreno se ha cosechado.
+
+Situaciones del contexto rural: repartir 1/2 kilo de quinua entre dos familias, dividir una jornada de trabajo en tercios, o medir 3/4 de litro de leche fresca para el desayuno escolar.
