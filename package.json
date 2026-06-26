@@ -10,7 +10,8 @@
     "db:init": "node scripts/init-db.mjs",
     "db:auth": "better-auth migrate -y",
     "typecheck": "tsc --noEmit",
-    "db:ingest": "node scripts/ingest-curriculum.mjs"
+    "db:ingest": "node scripts/ingest-curriculum.mjs",
+    "db:seed": "node node_modules/.pnpm/tsx@4.22.4/node_modules/tsx/dist/cli.mjs scripts/seed-users.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

@@ -1,0 +1,24 @@
+MATERIA: Ciencia y Tecnología
+GRADO: 5to
+TEMA: Fotosíntesis
+
+La fotosíntesis es el proceso mediante el cual las plantas fabrican su propio alimento. Ocurre en las hojas, específicamente en unos organelos llamados cloroplastos, que contienen clorofila (el pigmento que da el color verde a las plantas).
+
+Ecuación de la fotosíntesis:
+6CO₂ + 6H₂O + Luz solar → C₆H₁₂O₆ + 6O₂
+(Dióxido de carbono + Agua + Luz → Glucosa + Oxígeno)
+
+Factores necesarios:
+1. Luz solar: la energía que impulsa el proceso
+2. Agua: absorbida por las raíces
+3. Dióxido de carbono: tomado del aire por las hojas
+4. Clorofila: el pigmento que captura la luz
+
+Productos:
+- Glucosa: el alimento que la planta usa para crecer
+- Oxígeno: liberado al aire, esencial para la respiración de los seres vivos
+
+Importancia:
+- Las plantas son la base de la cadena alimenticia
+- Producen el oxígeno que respiramos
+- Regulan el dióxido de carbono en la atmósfera

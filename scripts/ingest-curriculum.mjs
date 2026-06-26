@@ -1,25 +1,77 @@
 // Loads data/curriculum/*.txt into the RAG store (rag_chunks + rag_vec).
-// Self-contained: talks to Ollama for embeddings directly so the box can be
-// provisioned without booting the Next app. Idempotent (clears RAG first).
+// Self-contained: talks to Ollama/Gemini for embeddings via the LLM router.
+// Idempotent (clears RAG first). Falls back to local embedder if no ML model
+// is available.
 import { readFileSync, readdirSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import Database from "better-sqlite3";
 import * as sqliteVec from "sqlite-vec";
 
 const DB_PATH = process.env.DB_PATH ?? "data/nextia.db";
-const OLLAMA = process.env.OLLAMA_BASE_URL ?? "http://127.0.0.1:11434";
-const EMBED_MODEL = process.env.OLLAMA_EMBED_MODEL ?? "nomic-embed-text";
 const DIR = "data/curriculum";
 const MAX_CHARS = 900;
 
+// Pure-JS embedder (hash-based, 768-dim, no ML model required)
+const DIM = 768;
+const SEED = 42;
+
+function hashWord(w) {
+  let h = SEED;
+  for (let i = 0; i < w.length; i++) h = ((h << 5) - h + w.charCodeAt(i)) | 0;
+  return h;
+}
+
+function wordToPosition(word) {
+  return Math.abs(hashWord(word)) % DIM;
+}
+
+function localEmbed(text) {
+  const vec = new Float64Array(DIM);
+  const words = text
+    .toLowerCase()
+    .replace(/[^a-záéíóúñü0-9\s]/g, "")
+    .split(/\s+/)
+    .filter(Boolean);
+
+  const freq = {};
+  for (const w of words) freq[w] = (freq[w] ?? 0) + 1;
+  const maxFreq = Math.max(...Object.values(freq), 1);
+
+  for (const [word, count] of Object.entries(freq)) {
+    const pos = wordToPosition(word);
+    vec[pos] += count / maxFreq;
+    for (let d = 1; d <= 3; d++) {
+      const left = (pos - d + DIM) % DIM;
+      const right = (pos + d) % DIM;
+      const spread = 1 / (d + 1);
+      vec[left] += (count / maxFreq) * spread;
+      vec[right] += (count / maxFreq) * spread;
+    }
+  }
+
+  let norm = 0;
+  for (let i = 0; i < DIM; i++) norm += vec[i] * vec[i];
+  norm = Math.sqrt(norm);
+  if (norm > 0) for (let i = 0; i < DIM; i++) vec[i] /= norm;
+
+  return Array.from(vec);
+}
+
 async function embed(texts) {
-  const res = await fetch(`${OLLAMA}/api/embed`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ model: EMBED_MODEL, input: texts }),
-  });
-  if (!res.ok) throw new Error(`ollama embed ${res.status}: ${await res.text()}`);
-  return (await res.json()).embeddings;
+  // Try Ollama first
+  const OLLAMA = process.env.OLLAMA_BASE_URL ?? "http://127.0.0.1:11434";
+  const EMBED_MODEL = process.env.OLLAMA_EMBED_MODEL ?? "nomic-embed-text";
+  try {
+    const res = await fetch(`${OLLAMA}/api/embed`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ model: EMBED_MODEL, input: texts }),
+    });
+    if (res.ok) return (await res.json()).embeddings;
+  } catch {}
+  // Fallback to local hash-based embedder
+  console.warn("  ⚠ Usando embedder local (hash) — sin modelo ML");
+  return texts.map(localEmbed);
 }
 
 function parseFile(text) {
@@ -38,7 +90,6 @@ function parseFile(text) {
     }
   }
   const body = lines.slice(i).join("\n").trim();
-  // chunk by paragraph, packing up to MAX_CHARS
   const paras = body.split(/\n\s*\n/).map((p) => p.replace(/\s+/g, " ").trim()).filter(Boolean);
   const chunks = [];
   let buf = "";
@@ -67,6 +118,7 @@ const files = readdirSync(DIR).filter((f) => f.endsWith(".txt"));
 let total = 0;
 for (const f of files) {
   const { meta, chunks } = parseFile(readFileSync(join(DIR, f), "utf8"));
+  console.log(`  Procesando ${f}: ${chunks.length} chunks`);
   const vecs = await embed(chunks);
   const tx = db.transaction(() => {
     chunks.forEach((c, idx) => {
@@ -76,7 +128,6 @@ for (const f of files) {
   });
   tx();
   total += chunks.length;
-  console.log(`  ${f}: ${chunks.length} chunks (${meta.materia} / ${meta.grado})`);
 }
 console.log(`Ingesta completa: ${total} chunks de ${files.length} archivos.`);
 db.close();

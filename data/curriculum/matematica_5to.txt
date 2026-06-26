@@ -1,0 +1,19 @@
+MATERIA: Matemática
+GRADO: 5to
+TEMA: Fracciones
+
+Las fracciones representan partes de un todo. Se escriben con dos números separados por una línea: el numerador (arriba) indica las partes que se toman, y el denominador (abajo) indica las partes totales en que se divide el todo.
+
+Ejemplo: 3/4 significa que tomamos 3 partes de un total de 4.
+
+Tipos de fracciones:
+- Fracción propia: el numerador es menor que el denominador (ej: 2/5)
+- Fracción impropia: el numerador es mayor que el denominador (ej: 7/4)
+- Fracción mixta: combina un número entero y una fracción (ej: 1 1/2)
+
+Operaciones básicas:
+- Suma y resta: deben tener el mismo denominador. Si no, se busca el mínimo común múltiplo.
+- Multiplicación: se multiplica numerador por numerador y denominador por denominador.
+- División: se multiplica en cruz (la primera fracción por la inversa de la segunda).
+
+En la vida cotidiana usamos fracciones al cocinar (1/2 taza de harina), al medir distancias (1/4 de kilómetro), o al repartir alimentos.
