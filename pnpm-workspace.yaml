@@ -1,3 +1,21 @@
+allowBuilds:
+  '@google/genai': true
+  better-sqlite3: true
+  esbuild: true
+  protobufjs: true
+  sharp: true
+  unrs-resolver: true
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
+minimumReleaseAgeExclude:
+  - '@better-auth/core@1.6.22'
+  - '@better-auth/drizzle-adapter@1.6.22'
+  - '@better-auth/kysely-adapter@1.6.22'
+  - '@better-auth/memory-adapter@1.6.22'
+  - '@better-auth/mongo-adapter@1.6.22'
+  - '@better-auth/prisma-adapter@1.6.22'
+  - '@better-auth/telemetry@1.6.22'
+  - '@langchain/langgraph@1.4.7'
+  - better-auth@1.6.22
+  - shadcn@4.12.0
