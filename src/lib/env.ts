@@ -25,6 +25,11 @@ export const env = {
 
   auth: {
     secret: process.env.BETTER_AUTH_SECRET ?? "dev-insecure-secret-change-me",
-    url: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
+    url: process.env.BETTER_AUTH_URL ?? "http://localhost:3010",
+    // Extra origins to trust (comma-separated), e.g. the box's LAN IP.
+    extraTrustedOrigins: (process.env.TRUSTED_ORIGINS ?? "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean),
   },
 };

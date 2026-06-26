@@ -9,6 +9,13 @@ export const auth = betterAuth({
   database: sqlite,
   secret: env.auth.secret,
   baseURL: env.auth.url,
+  // The product is an offline LAN appliance reached from many devices/IPs, so
+  // trust the request's own origin plus any explicitly configured extras. This
+  // intentionally relaxes CSRF origin checks for the box; tighten for cloud.
+  trustedOrigins: (request) => {
+    const origin = request?.headers.get("origin");
+    return [...env.auth.extraTrustedOrigins, ...(origin ? [origin] : [])];
+  },
   emailAndPassword: {
     enabled: true,
     // Hackathon: no email server in the box, so don't require verification.
