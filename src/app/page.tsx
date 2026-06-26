@@ -9,6 +9,7 @@ export default async function Home() {
   if (!s?.user) redirect("/login");
   const role = (s.user as { role?: string }).role ?? "alumno";
   if (role === "admin") redirect("/admin");
-  // TODO: /profesor and /alumno surfaces (step 4b)
-  redirect("/admin");
+  if (role === "profesor") redirect("/profesor");
+  if (role === "alumno") redirect("/alumno");
+  redirect("/login");
 }
