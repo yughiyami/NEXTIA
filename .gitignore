@@ -1,0 +1,38 @@
+# deps
+node_modules/
+.pnp
+.pnp.*
+
+# next
+.next/
+out/
+build/
+dist/
+
+# env
+.env
+.env*.local
+
+# data / models / db (the box's local state)
+*.sqlite
+*.sqlite3
+*.db
+/data/*.db
+/data/vectors/
+*.gguf
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# misc
+*.tsbuildinfo
+coverage/
