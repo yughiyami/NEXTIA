@@ -18,7 +18,7 @@ export default async function ProfesorLayout({
     <div className="flex min-h-screen">
       <aside className="flex w-56 shrink-0 flex-col gap-1 border-r bg-muted/30 p-4">
         <div className="px-2 pb-4">
-          <p className="text-lg font-semibold">NEXTIA</p>
+          <p className="text-lg font-semibold">aru</p>
           <p className="text-xs text-muted-foreground">Panel del profesor</p>
         </div>
         <nav className="flex flex-col gap-1">

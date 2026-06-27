@@ -15,7 +15,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <div className="flex min-h-screen">
       <aside className="w-56 shrink-0 border-r bg-muted/30 p-4 flex flex-col gap-1">
         <div className="px-2 pb-4">
-          <p className="text-lg font-semibold">NEXTIA</p>
+          <p className="text-lg font-semibold">aru</p>
           <p className="text-xs text-muted-foreground">Panel de administración</p>
         </div>
         <nav className="flex flex-col gap-1">

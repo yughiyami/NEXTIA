@@ -11,7 +11,7 @@ export default async function AlumnoLayout({
     <div className="min-h-screen">
       <header className="flex items-center justify-between border-b px-6 py-3">
         <div>
-          <p className="font-semibold">NEXTIA</p>
+          <p className="font-semibold">aru</p>
           <p className="text-xs text-muted-foreground">Hola, {user.name}</p>
         </div>
         <LogoutButton />

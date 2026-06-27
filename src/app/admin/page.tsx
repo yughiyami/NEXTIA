@@ -16,7 +16,7 @@ export default function AdminOverview() {
       <div>
         <h1 className="text-2xl font-semibold">Resumen</h1>
         <p className="text-sm text-muted-foreground">
-          Gestión de la escuela en la caja NEXTIA — todo local, sin internet.
+          Gestión de la escuela en la caja aru — todo local, sin internet.
         </p>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
